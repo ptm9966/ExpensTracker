@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\YouTube\\Videos\\Asp.Net Core\\Expense Tracker\\Project\\Expense Tracker\\Expense Tracker\\Expense Tracker.csproj": {}
+    "D:\\PTM\\PTMProjects\\asp_projects\\Expense-Tracker-Asp.Net-Core-MVC-6\\Expense Tracker\\Expense Tracker.csproj": {}
   },
   "projects": {
-    "D:\\YouTube\\Videos\\Asp.Net Core\\Expense Tracker\\Project\\Expense Tracker\\Expense Tracker\\Expense Tracker.csproj": {
+    "D:\\PTM\\PTMProjects\\asp_projects\\Expense-Tracker-Asp.Net-Core-MVC-6\\Expense Tracker\\Expense Tracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\YouTube\\Videos\\Asp.Net Core\\Expense Tracker\\Project\\Expense Tracker\\Expense Tracker\\Expense Tracker.csproj",
+        "projectUniqueName": "D:\\PTM\\PTMProjects\\asp_projects\\Expense-Tracker-Asp.Net-Core-MVC-6\\Expense Tracker\\Expense Tracker.csproj",
         "projectName": "Expense Tracker",
-        "projectPath": "D:\\YouTube\\Videos\\Asp.Net Core\\Expense Tracker\\Project\\Expense Tracker\\Expense Tracker\\Expense Tracker.csproj",
-        "packagesPath": "C:\\Users\\CodAffection\\.nuget\\packages\\",
-        "outputPath": "D:\\YouTube\\Videos\\Asp.Net Core\\Expense Tracker\\Project\\Expense Tracker\\Expense Tracker\\obj\\",
+        "projectPath": "D:\\PTM\\PTMProjects\\asp_projects\\Expense-Tracker-Asp.Net-Core-MVC-6\\Expense Tracker\\Expense Tracker.csproj",
+        "packagesPath": "C:\\Users\\vvred\\.nuget\\packages\\",
+        "outputPath": "D:\\PTM\\PTMProjects\\asp_projects\\Expense-Tracker-Asp.Net-Core-MVC-6\\Expense Tracker\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\CodAffection\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vvred\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,7 +38,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net6.0": {
@@ -73,7 +83,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -85,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
