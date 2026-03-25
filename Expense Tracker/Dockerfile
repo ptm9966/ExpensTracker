@@ -10,7 +10,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
 ARG UID=1001
 ARG GID=1001
-RUN addgroup --gid $GID appgroup \
+RUN addgroup --gid $GID appgroup && \
     adduser --system --uid $UID --ingroup appgroup appuser    
 COPY --from=build /app/publish /app/
 EXPOSE 8080
