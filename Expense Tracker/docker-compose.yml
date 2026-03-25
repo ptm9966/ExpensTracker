@@ -39,7 +39,7 @@ services:
       dockerfile: Dockerfile
     container_name: Expense_tracker
     ports:
-      - "8080:8080"
+      - "80:80"
     environment:
       ConnectionStrings__DevConnection: "Server=db;Database=BookStoreDb;User Id=sa;Password=Ptm@19941225;TrustServerCertificate=True"
     networks:

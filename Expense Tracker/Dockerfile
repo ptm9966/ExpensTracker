@@ -13,7 +13,7 @@ ARG GID=1001
 RUN addgroup --gid $GID appgroup && \
     adduser --system --uid $UID --ingroup appgroup appuser    
 COPY --from=build /app/publish /app/
-EXPOSE 8080
+EXPOSE 80
 RUN chown -R appuser:appgroup /app
 USER appuser
 ENTRYPOINT ["dotnet","Expense Tracker.dll"]
