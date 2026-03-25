@@ -10,7 +10,7 @@
 
 # Rider / JetBrains IDE
 .idea/
-
+.editor*
 # ===============================
 # Build / Output folders
 # ===============================
