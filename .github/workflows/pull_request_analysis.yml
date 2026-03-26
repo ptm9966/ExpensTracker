@@ -1,0 +1,35 @@
+name: Pull_request_analysis
+on:
+  pull_request:
+    branches:
+      - dev/*
+      - main
+  workflow_dispatch:
+
+permissions: 
+  contents: read
+  id-token: write
+  pull-requests: write
+  packages: write
+
+jobs:
+  Pull_request_analysis:
+    runs-on: ubuntu-22.04
+    name: Pull_request_analysis
+    steps:
+      - name: chekcout_repo
+        uses: actions/checkout@v6.0.2
+      - name: check_pwd
+        shell: bash
+        run: |
+            echo "----Present working directoyr--"
+            pwd
+            echo "-------------Files--------------"
+            ls -lah
+        
+
+
+
+
+
+      
