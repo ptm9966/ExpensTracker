@@ -826,4 +826,3 @@ D:\PTM\PTMProjects\asp_projects\Expense-Tracker-Asp.Net-Core-MVC-6\Expense Track
 D:\PTM\PTMProjects\asp_projects\Expense-Tracker-Asp.Net-Core-MVC-6\Expense Tracker\obj\Debug\net6.0\Expense Tracker.pdb
 D:\PTM\PTMProjects\asp_projects\Expense-Tracker-Asp.Net-Core-MVC-6\Expense Tracker\obj\Debug\net6.0\Expense Tracker.genruntimeconfig.cache
 D:\PTM\PTMProjects\asp_projects\Expense-Tracker-Asp.Net-Core-MVC-6\Expense Tracker\obj\Debug\net6.0\ref\Expense Tracker.dll
-D:\PTM\PTMProjects\asp_projects\Expense-Tracker-Asp.Net-Core-MVC-6\Expense Tracker\obj\Debug\net6.0\staticwebassets.upToDateCheck.txt

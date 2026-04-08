@@ -30,4 +30,27 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 
+// Add health check endpoints
+app.MapGet("/healthz", () => Results.Ok("Healthy"));
+// Refine /ready endpoint to ensure proper database connection check
+app.MapGet("/ready", async (IServiceProvider services) =>
+{
+    try
+    {
+        using var scope = services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        var canConnect = await dbContext.Database.CanConnectAsync();
+        if (!canConnect)
+        {
+            return Results.StatusCode(503); // Service Unavailable
+        }
+        return Results.Ok("Ready");
+    }
+    catch (Exception ex)
+    {
+        // Log the exception if needed
+        return Results.StatusCode(503); // Service Unavailable
+    }
+});
+
 app.Run();
