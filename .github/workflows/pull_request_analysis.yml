@@ -45,7 +45,7 @@ jobs:
           dotnet build
       - name: publish
         run: |
-          dotnet publish --configuration Release --output ./pubslish
+          dotnet publish --configuration Release --output ./publish
           echo "List files"
           ls -lah
       - name: upload_artifact
