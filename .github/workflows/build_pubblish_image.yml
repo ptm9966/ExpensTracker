@@ -33,8 +33,21 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
        - name: build_image
          shell: bash
+         working-directory: Expense_Tracker
          run: |
-           docker --version
+           docker build  -f Dockerfile -t ghcr.io/${{ github.repository }}/Expense_tracker:latest
+           -t ghcr.io/${{ github.repository }}/Expense_tracker:${{ github.sha }}
+           
+        - name: publish image
+          run: |
+             docker images
+             docker ps
+          
+
+
+
+
+        
            
 
 
