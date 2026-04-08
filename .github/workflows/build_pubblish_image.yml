@@ -14,7 +14,6 @@ jobs:
      name: build-publish_image
      runs-on: ubuntu-22.04
      steps:
-     
        - name: checkout_code
          uses: actions/checkout@v6.0.2
        - name: setup_dotnet_version
@@ -37,10 +36,10 @@ jobs:
          working-directory: Expense_Tracker
          run: |
            docker build  -f Dockerfile -t ghcr.io/${{ github.repository }}/Expense_tracker:latest
-           -t ghcr.io/${{ github.repository }}/Expense_tracker:${{ github.sha }}
+           -t ghcr.io/${{ github.repository }}/Expense_tracker:${{ github.sha }} .
            
-        - name: publish image
-          run: |
+       - name: publish image
+         run: |
              docker images
              docker ps
           
