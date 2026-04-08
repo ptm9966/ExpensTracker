@@ -14,8 +14,15 @@ jobs:
      name: build-publish_image
      runs-on: ubuntu-22.04
      steps:
+       - name: checkout-code
+         uses: actions/checkout@v6.0.2
+       - name: setup_dotnet_version
+         uses: actions/setup-dotnet@v5
+         with:
+            dotnet-version: '8.0.x'
        - name: dotnet_build
          run: |
+            cd Expense_Tracker
             dotnet restore
             echo "dotnet build"
        - name: docker_login
