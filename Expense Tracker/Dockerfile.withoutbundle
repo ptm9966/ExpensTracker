@@ -1,5 +1,5 @@
 # Stage 1: Build your application and migrations
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 
 # Copy the project file and restore dependencies to leverage Docker's layer caching
@@ -14,7 +14,7 @@ RUN dotnet build "Expense Tracker.csproj" -c Release -o /app/build
 
 # Install the dotnet-ef tool globally if it's not already in the SDK image
 # (It often is, but this ensures it's available)
-RUN dotnet tool install --global dotnet-ef --version 8.0.* # Use your EF Core version
+RUN dotnet tool install --global dotnet-ef --version 6.0.* # Use your EF Core version
 
 # Ensure the dotnet-ef tool is in the PATH
 ENV PATH="$PATH:/root/.dotnet/tools"
