@@ -27,7 +27,7 @@ jobs:
        - name: build_image
          shell: bash
          run: |
-         docker --version
+           docker --version
            
 
 
