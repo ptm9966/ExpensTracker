@@ -35,7 +35,20 @@ jobs:
         shell: bash
         run: |
            dotnet --info
-           
+      - name: run_build
+        run: |
+          cd "Expense Tracker"
+          ls -lah
+          echo "dotnet restore"
+          dotnet restore
+          echo "dotnet build"
+          dotnet build
+      - name: publish
+        run: |
+          dotnet publish --configuration Release --output ./pubslish
+          echo "List files"
+          ls -lah
+      
           
 
 
