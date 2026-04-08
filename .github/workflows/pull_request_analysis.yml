@@ -37,7 +37,7 @@ jobs:
            dotnet --info
       - name: run_build
         run: |
-          cd "Expense Tracker"
+          cd "Expense_Tracker"
           ls -lah
           echo "dotnet restore"
           dotnet restore
