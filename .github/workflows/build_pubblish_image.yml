@@ -41,7 +41,7 @@ jobs:
        - name: publish image
          run: |
              docker images
-             docker ps
+             docker push ghcr.io/expense_tracker/expense_tracker:latest
           
 
 
