@@ -35,7 +35,7 @@ jobs:
          shell: bash
          working-directory: Expense_Tracker
          run: |
-           docker build  -f Dockerfile -t ghcr.io/${{ github.repository }}/Expense_tracker:latest
+           docker build  -f Dockerfile -t ghcr.io/${{ github.repository }}/Expense_tracker:latest \
            -t ghcr.io/${{ github.repository }}/Expense_tracker:${{ github.sha }} .
            
        - name: publish image
