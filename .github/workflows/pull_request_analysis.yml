@@ -48,7 +48,11 @@ jobs:
           dotnet publish --configuration Release --output ./pubslish
           echo "List files"
           ls -lah
-      
+      - name: upload_artifact
+        uses: actions/upload-artifact@v3.2.2
+        with:
+          name: publish
+          path: "Expense Tracker/publish"
           
 
 
