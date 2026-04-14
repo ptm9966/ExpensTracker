@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mssql-db-migration
+spec:
+  template:
+    spec:
+      containers:
+      - name: db-migration
+        image: ghcr.io/ptm9966/expense_tracker_db_migration:e0813eddb85ec91505ca559842af2e2ea5982807  # Replace with your migration tool container image
+        env:
+        - name: ConnectionStrings__DevConnection
+          value: "Server=mssql-service;Database=Expense_tracker_Db;User Id=sa;Password=Ptm@19941225;TrustServerCertificate=True"
+      restartPolicy: Never
+  backoffLimit: 4
