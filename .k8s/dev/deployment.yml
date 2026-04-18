@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/ptm9966/expense_tracker:1dde371cfd90c8b5f867bb5e570700d0b2c006c8
+          image: ghcr.io/ptm9966/expense_tracker:9d6b7f1ba6b716bb437b4dc0d360b68c9011afa9  # Replace with your application container image
           env:
             - name: SqlServer__Host
               value: "mssql-service"

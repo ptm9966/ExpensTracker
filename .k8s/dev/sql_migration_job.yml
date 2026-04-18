@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: db-migration
-        image: ghcr.io/ptm9966/expense_tracker_db_migration:e0813eddb85ec91505ca559842af2e2ea5982807  # Replace with your migration tool container image
+        image: ghcr.io/ptm9966/expense_tracker_db_migration:9d6b7f1ba6b716bb437b4dc0d360b68c9011afa9  # Replace with your migration tool container image
         env:
         - name: SqlServer__Host
           value: "mssql-service"
