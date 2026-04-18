@@ -18,11 +18,21 @@ RUN dotnet tool install --global dotnet-ef --version 6.0.* # Use your EF Core ve
 
 # Ensure the dotnet-ef tool is in the PATH
 ENV PATH="$PATH:/root/.dotnet/tools"
+ENV ConnectionStrings__DevConnection= \
+    SqlServer__Host= \
+    SqlServer__Port=1433 \
+    SqlServer__Database= \
+    SqlServer__User= \
+    SqlServer__Password= \
+    SqlServer__Encrypt=false \
+    SqlServer__TrustServerCertificate=true \
+    SqlServer__MultipleActiveResultSets=false \
+    SqlServer__ConnectionTimeout=30
 
 # Set the entrypoint to run the migrations
 # --project and --startup-project ensure EF Core knows which project to use for migrations
 # --connection is crucial for passing the database connection string
 RUN dotnet tool restore
 
-# Command to run migrations. Ensure your connection string is available via environment variables.
-ENTRYPOINT dotnet ef database update --project "Expense Tracker.csproj" --startup-project "Expense Tracker.csproj" --connection "${ConnectionStrings__DevConnection}"
+# Command to run migrations using SqlServer environment variables
+ENTRYPOINT ["sh", "-c", "dotnet ef database update --project 'Expense Tracker.csproj' --startup-project 'Expense Tracker.csproj' --connection \"Server=${SqlServer__Host},${SqlServer__Port:-1433};Database=${SqlServer__Database};User Id=${SqlServer__User};Password=${SqlServer__Password};TrustServerCertificate=true;Connection Timeout=30\""]

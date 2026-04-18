@@ -3,8 +3,8 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: ptmsql
     environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=Ptm@19941225
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
     volumes:
       - expensetracker_db:/var/opt/mssql
     ports:
@@ -12,7 +12,7 @@ services:
     networks:
       - expensetracker-net
     healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P Ptm@19941225 -C -Q 'SELECT 1' || exit 1"]
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P '$MSSQL_SA_PASSWORD' -C -Q 'SELECT 1' || exit 1"]
       interval: 10s
       retries: 5
       start_period: 45s
@@ -22,10 +22,14 @@ services:
   migration:
     build:
       context: .
-      dockerfile: Dockerfile.withoutbundle
+      dockerfile: Dockerfile.datamigration
     container_name: Expense_tracker_Migration
     environment:
-      ConnectionStrings__DevConnection: "Server=db;Database=BookStoreDb;User Id=sa;Password=Ptm@19941225;TrustServerCertificate=True"
+      SqlServer__Host: db
+      SqlServer__Database: expense_tracker_db
+      SqlServer__User: sa
+      SqlServer__Password: ${MSSQL_SA_PASSWORD}
+      SqlServer__TrustServerCertificate: "true"
     networks:
       - expensetracker-net
     depends_on:
@@ -39,9 +43,13 @@ services:
       dockerfile: Dockerfile
     container_name: Expense_tracker
     ports:
-      - "8070:8070"
+      - "8020:80"
     environment:
-      ConnectionStrings__DevConnection: "Server=db;Database=BookStoreDb;User Id=sa;Password=Ptm@19941225;TrustServerCertificate=True"
+      SqlServer__Host: db
+      SqlServer__Database: expense_tracker_db
+      SqlServer__User: sa
+      SqlServer__Password: ${MSSQL_SA_PASSWORD}
+      SqlServer__TrustServerCertificate: "true"
     networks:
       - expensetracker-net
     depends_on:
