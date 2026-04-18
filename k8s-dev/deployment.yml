@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/ptm9966/expense_tracker:e0813eddb85ec91505ca559842af2e2ea5982807
+          image: ghcr.io/ptm9966/expense_tracker:1dde371cfd90c8b5f867bb5e570700d0b2c006c8
           env:
           - name: ConnectionStrings__DevConnection
             value: "Server=mssql-service;Database=Expense_tracker_Db;User Id=sa;Password=Ptm@19941225;TrustServerCertificate=True"
