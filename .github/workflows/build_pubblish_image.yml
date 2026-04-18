@@ -38,7 +38,7 @@ jobs:
            docker build  -f Dockerfile -t ghcr.io/ptm9966/expense_tracker:latest \
            -t ghcr.io/ptm9966/expense_tracker:${{ github.sha }} .
 
-            docker build  -f Dockerfile.withoutbundle -t ghcr.io/ptm9966/expense_tracker_db_migration:latest \
+            docker build  -f Dockerfile.datamigration -t ghcr.io/ptm9966/expense_tracker_db_migration:latest \
            -t ghcr.io/ptm9966/expense_tracker_db_migration:${{ github.sha }} .
            
        - name: publish image
