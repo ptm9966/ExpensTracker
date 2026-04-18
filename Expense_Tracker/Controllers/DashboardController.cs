@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Diagnostics;
+using Expense_Tracker.Observability;
 
 namespace Expense_Tracker.Controllers
 {
@@ -17,6 +19,9 @@ namespace Expense_Tracker.Controllers
 
         public async Task<ActionResult> Index()
         {
+            var dashboardTimer = Stopwatch.StartNew();
+            AppMetrics.DashboardRequests.Inc();
+
             //Last 7 Days
             DateTime StartDate = DateTime.Today.AddDays(-6);
             DateTime EndDate = DateTime.Today;
@@ -30,16 +35,19 @@ namespace Expense_Tracker.Controllers
             int TotalIncome = SelectedTransactions
                 .Where(i => i.Category.Type == "Income")
                 .Sum(j => j.Amount);
+            AppMetrics.DashboardIncomeAmount.Set(TotalIncome);
             ViewBag.TotalIncome = TotalIncome.ToString("C0");
 
             //Total Expense
             int TotalExpense = SelectedTransactions
                 .Where(i => i.Category.Type == "Expense")
                 .Sum(j => j.Amount);
+            AppMetrics.DashboardExpenseAmount.Set(TotalExpense);
             ViewBag.TotalExpense = TotalExpense.ToString("C0");
 
             //Balance
             int Balance = TotalIncome - TotalExpense;
+            AppMetrics.DashboardBalanceAmount.Set(Balance);
             CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
             culture.NumberFormat.CurrencyNegativePattern = 1;
             ViewBag.Balance = String.Format(culture, "{0:C0}", Balance);
@@ -103,6 +111,9 @@ namespace Expense_Tracker.Controllers
                 .OrderByDescending(j => j.Date)
                 .Take(5)
                 .ToListAsync();
+
+            AppMetrics.DashboardSelectedTransactionCount.Set(SelectedTransactions.Count);
+            AppMetrics.DashboardLoadDuration.Observe(dashboardTimer.Elapsed.TotalSeconds);
 
 
             return View();

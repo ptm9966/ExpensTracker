@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Expense_Tracker.Models;
+using Expense_Tracker.Observability;
 
 namespace Expense_Tracker.Controllers
 {
@@ -21,6 +22,7 @@ namespace Expense_Tracker.Controllers
         // GET: Category
         public async Task<IActionResult> Index()
         {
+            AppMetrics.CategoryListRequests.Inc();
             return _context.Categories != null ?
                         View(await _context.Categories.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
@@ -46,11 +48,19 @@ namespace Expense_Tracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                var operation = category.CategoryId == 0 ? "create" : "update";
+
                 if (category.CategoryId == 0)
                     _context.Add(category);
                 else
                     _context.Update(category);
+
                 await _context.SaveChangesAsync();
+
+                AppMetrics.CategoryWrites
+                    .WithLabels(operation, category.Type.ToLowerInvariant())
+                    .Inc();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -70,6 +80,10 @@ namespace Expense_Tracker.Controllers
             if (category != null)
             {
                 _context.Categories.Remove(category);
+
+                AppMetrics.CategoryWrites
+                    .WithLabels("delete", category.Type.ToLowerInvariant())
+                    .Inc();
             }
 
             await _context.SaveChangesAsync();

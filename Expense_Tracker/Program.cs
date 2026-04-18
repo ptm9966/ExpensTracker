@@ -1,5 +1,6 @@
 using Expense_Tracker.Models;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseHttpMetrics();
 
 app.UseAuthorization();
 
@@ -52,5 +54,6 @@ app.MapGet("/ready", async (IServiceProvider services) =>
         return Results.StatusCode(503); // Service Unavailable
     }
 });
+app.MapMetrics("/metrics");
 
 app.Run();

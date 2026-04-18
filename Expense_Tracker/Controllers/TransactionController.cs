@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Expense_Tracker.Models;
+using Expense_Tracker.Observability;
 
 namespace Expense_Tracker.Controllers
 {
@@ -21,6 +22,7 @@ namespace Expense_Tracker.Controllers
         // GET: Transaction
         public async Task<IActionResult> Index()
         {
+            AppMetrics.TransactionListRequests.Inc();
             var applicationDbContext = _context.Transactions.Include(t => t.Category);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -44,11 +46,30 @@ namespace Expense_Tracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                var operation = transaction.TransactionId == 0 ? "create" : "update";
+
                 if (transaction.TransactionId == 0)
                     _context.Add(transaction);
                 else
                     _context.Update(transaction);
+
                 await _context.SaveChangesAsync();
+
+                var categoryType = await _context.Categories
+                    .Where(c => c.CategoryId == transaction.CategoryId)
+                    .Select(c => c.Type)
+                    .FirstOrDefaultAsync() ?? "unknown";
+
+                categoryType = categoryType.ToLowerInvariant();
+
+                AppMetrics.TransactionWrites
+                    .WithLabels(operation, categoryType)
+                    .Inc();
+
+                AppMetrics.TransactionAmountRecorded
+                    .WithLabels(categoryType)
+                    .Observe(transaction.Amount);
+
                 return RedirectToAction(nameof(Index));
             }
             PopulateCategories();
@@ -67,7 +88,16 @@ namespace Expense_Tracker.Controllers
             var transaction = await _context.Transactions.FindAsync(id);
             if (transaction != null)
             {
+                var categoryType = await _context.Categories
+                    .Where(c => c.CategoryId == transaction.CategoryId)
+                    .Select(c => c.Type)
+                    .FirstOrDefaultAsync() ?? "unknown";
+
                 _context.Transactions.Remove(transaction);
+
+                AppMetrics.TransactionWrites
+                    .WithLabels("delete", categoryType.ToLowerInvariant())
+                    .Inc();
             }
 
             await _context.SaveChangesAsync();
