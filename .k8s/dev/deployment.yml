@@ -19,6 +19,8 @@ spec:
         app: expense-tracker
         environment: dev
     spec:
+      securityContext:
+        runAsUser: 0
       containers:
         - name: app
           image: ghcr.io/ptm9966/expense_tracker:9d6b7f1ba6b716bb437b4dc0d360b68c9011afa9  # Replace with your application container image
